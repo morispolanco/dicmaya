@@ -12,23 +12,23 @@ def crear_columna_info():
     st.markdown("""
     ## Sobre esta aplicación
 
-    Esta aplicación permite a los usuarios obtener definiciones de términos relacionados con temas culturales en general, con un enfoque específico en la visión maya del término, citando fuentes relevantes.
+    Esta aplicación es un Diccionario Cultural basado en la visión de la cultura Maya. Permite a los usuarios obtener definiciones de términos culturales según la interpretación de la cosmovisión maya.
 
     ### Cómo usar la aplicación:
 
-    1. Elija un término cultural de la lista predefinida o proponga su propio término.
-    2. Haga clic en "Generar entrada de diccionario" para obtener la definición.
+    1. Elija un término cultural de la lista predefinida.
+    2. Haga clic en "Generar entrada de diccionario" para obtener la definición desde la perspectiva maya.
     3. Lea la definición y las fuentes proporcionadas.
     4. Si lo desea, descargue un documento DOCX con toda la información.
 
     ### Autor y actualización:
-    **Moris Polanco**, 26 ag 2024
+    **Moris Polanco**, 28 ag 2024
 
     ### Cómo citar esta aplicación (formato APA):
-    Polanco, M. (2024). *Diccionario Cultural Maya* [Aplicación web]. https://diccmaya.streamlit.app
+    Polanco, M. (2024). *Diccionario Cultural Maya* [Aplicación web]. https://dicmayacultura.streamlit.app
 
     ---
-    **Nota:** Esta aplicación utiliza inteligencia artificial para generar contenido basado en información disponible en línea. Siempre verifique la información con fuentes académicas para un análisis más profundo.
+    **Nota:** Esta aplicación utiliza inteligencia artificial para generar definiciones basadas en la visión maya. Verifique la información con fuentes adicionales para un análisis más profundo.
     """)
 
 # Titles and Main Column
@@ -41,11 +41,11 @@ with col1:
 
 with col2:
     TOGETHER_API_KEY = st.secrets["TOGETHER_API_KEY"]
-    SERPER_API_KEY = st.secrets["SERPER_API_KEY"]
+    SERPLY_API_KEY = st.secrets["SERPLY_API_KEY"]
 
-    # Expanded list of 101 cultural terms with a focus on Maya culture
+    # 101 cultural terms related to the Maya perspective
     terminos_culturales = sorted([
-        "Ajaw", "Balam (Jaguar)", "Ceiba (Árbol sagrado)", "Chaac (Dios de la lluvia)", "Ch'ulel (Espíritu o alma)",
+         "Ajaw", "Balam (Jaguar)", "Ceiba (Árbol sagrado)", "Chaac (Dios de la lluvia)", "Ch'ulel (Espíritu o alma)",
         "Cosmovisión", "Creador", "Destino", "Dualidad", "Dzuli (Extranjero)", "Etnia", "Familia", "Hunab Ku (Dios supremo)",
         "Ik' (Viento)", "Itzamná (Dios del cielo)", "Ixchel (Diosa de la luna)", "Ja' (Agua)", "K'uh (Divinidad)",
         "Kukulcán (Serpiente emplumada)", "Lak'in (Punto cardinal este)", "Maíz (Elemento vital)", "Muerte",
@@ -64,27 +64,26 @@ with col2:
     ])
 
     def buscar_informacion(query):
-        url = "https://google.serper.dev/search"
-        payload = json.dumps({
-            "q": f"{query} Cultura Maya"
-        })
+        url = f"https://api.serply.io/v1/scholar/q={query}"
         headers = {
-            'X-API-KEY': SERPER_API_KEY,
-            'Content-Type': 'application/json'
+            'X-Api-Key': SERPLY_API_KEY,
+            'Content-Type': 'application/json',
+            'X-Proxy-Location': 'US',
+            'X-User-Agent': 'Mozilla/5.0'
         }
-        response = requests.post(url, headers=headers, data=payload)
+        response = requests.get(url, headers=headers)
         return response.json()
 
     def generar_definicion(termino, contexto):
         url = "https://api.together.xyz/inference"
         payload = json.dumps({
             "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
-            "prompt": f"Contexto: {contexto}\n\nTérmino: {termino}\n\nProporciona una entrada de diccionario sobre '{termino}' en el contexto de la Cultura Maya, destacando su significado y relevancia en esta cultura. Cita fuentes relevantes.\n\nDefinición:",
+            "prompt": f"Contexto: {contexto}\n\nTérmino: {termino}\n\nProporciona una definición del término cultural '{termino}' según la visión de la cultura Maya. La definición debe ser concisa pero informativa, similar a una entrada de diccionario. Si es posible, incluye una referencia a una fuente específica que trate este concepto.\n\nDefinición:",
             "max_tokens": 2048,
-            "temperature": 0.6,
+            "temperature": 0.7,
             "top_p": 0.7,
             "top_k": 50,
-            "repetition_penalty": 0.5,
+            "repetition_penalty": 1,
             "stop": ["Término:"]
         })
         headers = {
@@ -96,7 +95,7 @@ with col2:
 
     def create_docx(termino, definicion, fuentes):
         doc = Document()
-        doc.add_heading(f'Diccionario Cultural Maya - {termino}', 0)
+        doc.add_heading('Diccionario Cultural - Visión Maya', 0)
 
         doc.add_heading('Término', level=1)
         doc.add_paragraph(termino)
@@ -112,29 +111,24 @@ with col2:
 
         return doc
 
-    st.write("Elige un término cultural de la lista o propón tu propio término:")
+    st.write("Elige un término cultural de la lista:")
 
-    opcion = st.radio("", ["Elegir de la lista", "Proponer mi propio término"])
-
-    if opcion == "Elegir de la lista":
-        termino = st.selectbox("Selecciona un término:", terminos_culturales)
-    else:
-        termino = st.text_input("Ingresa tu propio término:")
+    termino = st.selectbox("Selecciona un término:", terminos_culturales)
 
     if st.button("Generar entrada de diccionario"):
         if termino:
             with st.spinner("Buscando información y generando definición..."):
                 # Buscar información relevante
                 resultados_busqueda = buscar_informacion(termino)
-                contexto = "\n".join([item["snippet"] for item in resultados_busqueda.get("organic", [])])
-                fuentes = [item["link"] for item in resultados_busqueda.get("organic", [])]
+                contexto = "\n".join([item["snippet"] for item in resultados_busqueda.get("results", [])])
+                fuentes = [item["url"] for item in resultados_busqueda.get("results", [])]
 
                 # Generar definición
                 definicion = generar_definicion(termino, contexto)
 
-                # Mostrar la definición generada
+                # Mostrar la definición
                 st.subheader(f"Definición para el término: {termino}")
-                st.markdown(f"**Definición:** {definicion}")
+                st.markdown(f"**{definicion}**")
 
                 # Botón para descargar el documento
                 doc = create_docx(termino, definicion, fuentes)
