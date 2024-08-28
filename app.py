@@ -103,9 +103,11 @@ with col2:
         doc.add_heading('Definición', level=2)
         doc.add_paragraph(definicion)
 
-        doc.add_heading('Fuentes', level=1)
-        for fuente in fuentes:
-            doc.add_paragraph(f"{fuente['author']}. ({fuente['year']}). *{fuente['title']}*. {fuente['journal']}, {fuente['volume']}({fuente['issue']}), {fuente['pages']}. {fuente['url']}", style='List Bullet')
+        # Agregar "Fuentes" solo si hay fuentes disponibles
+        if fuentes:
+            doc.add_heading('Fuentes', level=1)
+            for fuente in fuentes:
+                doc.add_paragraph(f"{fuente['author']}. ({fuente['year']}). *{fuente['title']}*. {fuente['journal']}, {fuente['volume']}({fuente['issue']}), {fuente['pages']}. {fuente['url']}", style='List Bullet')
 
         doc.add_paragraph('\nNota: Este documento fue generado por un asistente de IA. Verifica la información con fuentes académicas para un análisis más profundo.')
 
