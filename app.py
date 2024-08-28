@@ -78,7 +78,7 @@ with col2:
         url = "https://api.together.xyz/inference"
         payload = json.dumps({
             "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
-            "prompt": f"Contexto: {contexto}\n\nTérmino: {termino}\n\nProporciona una definición del término cultural '{termino}' según la visión de la cultura Maya. La definición debe ser concisa pero informativa, similar a una entrada de diccionario. Si es posible, incluye una referencia a una fuente específica que trate este concepto.\n\nDefinición:",
+            "prompt": f"Contexto: {contexto}\n\nTérmino: {termino}\n\nProporciona una definición del término cultural '{termino}' según la visión de la cultura Maya. La definición debe ser más larga, detallada, e informativa, similar a una entrada de diccionario extendida. Incluye referencias a fuentes específicas que traten este concepto.\n\nDefinición:",
             "max_tokens": 2048,
             "temperature": 0.7,
             "top_p": 0.7,
@@ -105,7 +105,7 @@ with col2:
 
         doc.add_heading('Fuentes', level=1)
         for fuente in fuentes:
-            doc.add_paragraph(fuente, style='List Bullet')
+            doc.add_paragraph(f"{fuente['author']}. ({fuente['year']}). *{fuente['title']}*. {fuente['journal']}, {fuente['volume']}({fuente['issue']}), {fuente['pages']}. {fuente['url']}", style='List Bullet')
 
         doc.add_paragraph('\nNota: Este documento fue generado por un asistente de IA. Verifica la información con fuentes académicas para un análisis más profundo.')
 
@@ -121,7 +121,16 @@ with col2:
                 # Buscar información relevante
                 resultados_busqueda = buscar_informacion(termino)
                 contexto = "\n".join([item["snippet"] for item in resultados_busqueda.get("results", [])])
-                fuentes = [item["url"] for item in resultados_busqueda.get("results", [])]
+                fuentes = [{
+                    "author": item["author"] if "author" in item else "Autor desconocido",
+                    "year": item["year"] if "year" in item else "s.f.",
+                    "title": item["title"],
+                    "journal": item["journal"] if "journal" in item else "Revista desconocida",
+                    "volume": item["volume"] if "volume" in item else "",
+                    "issue": item["issue"] if "issue" in item else "",
+                    "pages": item["pages"] if "pages" in item else "",
+                    "url": item["url"]
+                } for item in resultados_busqueda.get("results", [])]
 
                 # Generar definición
                 definicion = generar_definicion(termino, contexto)
