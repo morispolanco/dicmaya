@@ -14,21 +14,7 @@ SERPLY_API_KEY = st.secrets["SERPLY_API_KEY"]
 # 101 cultural terms related to the Maya perspective, ordered alphabetically
 terminos_culturales = sorted([
     "Agua", "Ajaw", "Alma", "Animales", "Árboles", "Balam (Jaguar)", "Ceiba (Árbol sagrado)",
-    "Chaac (Dios de la lluvia)", "Ch'ulel (Espíritu o alma)", "Comunión", "Confianza", "Cosmovisión", "Creador",
-    "Creación", "Crecimiento", "Cultivo", "Destino", "Dualidad", "Dzuli (Extranjero)", "Etnia", "Espíritu",
-    "Espacio-tiempo", "Familia", "Fertilidad", "Fuego", "Fuerza", "Hunab Ku (Dios supremo)", "Hombres",
-    "Identidad", "Ik' (Viento)", "Inframundo", "Itzamná (Dios del cielo)", "Ixchel (Diosa de la luna)",
-    "Jaguar", "Ja' (Agua)", "K'uh (Divinidad)", "Kukulkan", "Kukulcán (Serpiente emplumada)", "Lak'in (Punto cardinal este)",
-    "Luna", "Madera", "Maíz (Elemento vital)", "Maya", "Muerte", "Nahualismo (Creencia en el espíritu animal)",
-    "Nación", "Naturaleza", "Noche", "Noj (Sabiduría)", "Origen", "Oxlahun ti' k'uh (Trece dioses)",
-    "Pawahtun (Dioses del inframundo)", "Paz", "Persona", "Poder", "Pueblo", "Puntos cardinales", "Q'anil (Semilla)",
-    "Religión", "Reencarnación", "Respiración", "Ritual", "Sabiduría", "Sak Nikte' (Flor blanca)",
-    "Sak'ij (Iluminación)", "Salud", "Serpiente emplumada", "Sol", "Suerte", "Sueño", "Tezcatlipoca (Espejo humeante)",
-    "Tierra", "Tikal (Ciudad maya)", "Tiempo", "Toj (Tributo)", "Tradición", "Trascendencia", "Tzolkin (Calendario sagrado)",
-    "Uinal (Mes maya)", "Uxmal (Tres veces construido)", "Universo", "Viento", "Vida", "Visión", "Vitalidad",
-    "Voluntad", "Wak (Seis)", "Xenil (Camino)", "Xibalbá (Inframundo maya)", "Yaxché (Árbol de la vida)",
-    "Yuum Kaax (Dios de la flora y fauna)", "Yuum k’aax (Dios de los bosques)", "Yuum ik’ (Dios del viento)", 
-    "Zama (Amanecer)"
+    "Chaac (Dios de la lluvia)"
 ])
 
 def buscar_informacion(query):
