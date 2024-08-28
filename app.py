@@ -113,9 +113,14 @@ with col2:
 
         return doc
 
-    st.write("Elige un término cultural de la lista:")
+    st.write("Elige un término económico de la lista o propón tu propio término:")
 
-    termino = st.selectbox("Selecciona un término:", terminos_culturales)
+    opcion = st.radio("", ["Elegir de la lista", "Proponer mi propio término"])
+
+    if opcion == "Elegir de la lista":
+        termino = st.selectbox("Selecciona un término:", terminos_culturales)
+    else:
+        termino = st.text_input("Ingresa tu propio término cultural:")
 
     if st.button("Generar entrada de diccionario"):
         if termino:
