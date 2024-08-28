@@ -81,10 +81,10 @@ with col2:
             "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
             "prompt": f"Contexto: {contexto}\n\nTérmino: {termino}\n\nProporciona una entrada de diccionario sobre '{termino}' en el contexto de la Cultura Maya, destacando su significado y relevancia en esta cultura. Cita fuentes relevantes.\n\nDefinición:",
             "max_tokens": 2048,
-            "temperature": 0,
+            "temperature": 0.6,
             "top_p": 0.7,
             "top_k": 50,
-            "repetition_penalty": 0,
+            "repetition_penalty": 0.5,
             "stop": ["Término:"]
         })
         headers = {
