@@ -13,8 +13,22 @@ SERPLY_API_KEY = st.secrets["SERPLY_API_KEY"]
 
 # 101 cultural terms related to the Maya perspective, ordered alphabetically
 terminos_culturales = sorted([
-    "Agua", "Ajaw", "Alma", "Animales", "Árboles", "Balam (Jaguar)", "Ceiba (Árbol sagrado)",
-    "Chaac (Dios de la lluvia)"
+         "Ajaw", "Balam (Jaguar)", "Ceiba (Árbol sagrado)", "Chaac (Dios de la lluvia)", "Ch'ulel (Espíritu o alma)",
+        "Cosmovisión", "Creador", "Destino", "Dualidad", "Dzuli (Extranjero)", "Etnia", "Familia", "Hunab Ku (Dios supremo)",
+        "Ik' (Viento)", "Itzamná (Dios del cielo)", "Ixchel (Diosa de la luna)", "Ja' (Agua)", "K'uh (Divinidad)",
+        "Kukulcán (Serpiente emplumada)", "Lak'in (Punto cardinal este)", "Maíz (Elemento vital)", "Muerte",
+        "Nahualismo (Creencia en el espíritu animal)", "Nación", "Naturaleza", "Noche", "Noj (Sabiduría)",
+        "Oxlahun ti' k'uh (Trece dioses)", "Pawahtun (Dioses del inframundo)", "Persona", "Q'anil (Semilla)",
+        "Religión", "Sak Nikte' (Flor blanca)", "Sak'ij (Iluminación)", "Sol", "Suerte", "Tezcatlipoca (Espejo humeante)",
+        "Tierra", "Tikal (Ciudad maya)", "Toj (Tributo)", "Tzolkin (Calendario sagrado)", "Uinal (Mes maya)",
+        "Uxmal (Tres veces construido)", "Viento", "Wak (Seis)", "Xibalbá (Inframundo maya)", "Yaxché (Árbol de la vida)",
+        "Yuum k’aax (Dios de los bosques)", "Yuum ik’ (Dios del viento)", "Zama (Amanecer)", "Creación", "Espacio-tiempo",
+        "Espíritu", "Fertilidad", "Fuego", "Identidad", "Inframundo", "Jaguar", "Kukulkan", "Luna", "Madera", "Maya",
+        "Muerte", "Origen", "Paz", "Poder", "Pueblo", "Respiración", "Sacerdote", "Sociedad", "Sol", "Tiempo",
+        "Tradición", "Trascendencia", "Unión", "Viento", "Vida", "Visión", "Voluntad", "Agua", "Animales", "Árboles",
+        "Comunión", "Confianza", "Crecimiento", "Cultivo", "Fuerza", "Hombres", "Mujeres", "Naturaleza", "Puntos cardinales",
+        "Reencarnación", "Ritual", "Sabiduría", "Salud", "Sueño", "Tierra", "Universo", "Vitalidad", "Xenil (Camino)",
+        "Yuum Kaax (Dios de la flora y fauna)"
 ])
 
 def buscar_informacion(query):
