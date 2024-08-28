@@ -25,7 +25,7 @@ def crear_columna_info():
     **Moris Polanco**, 28 ag 2024
 
     ### Cómo citar esta aplicación (formato APA):
-    Polanco, M. (2024). *Diccionario Cultural Maya* [Aplicación web]. https://dicmayacultura.streamlit.app
+    Polanco, M. (2024). *Diccionario Cultural Maya* [Aplicación web]. https://culturamaya.streamlit.app
 
     ---
     **Nota:** Esta aplicación utiliza inteligencia artificial para generar definiciones basadas en la visión maya. Verifique la información con fuentes adicionales para un análisis más profundo.
