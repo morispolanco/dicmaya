@@ -33,7 +33,7 @@ def generar_definicion(termino, contexto):
     payload = json.dumps({
         "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
         "prompt": f"Contexto: {contexto}\n\nTérmino: {termino}\n\nProporciona una definición del término cultural '{termino}' según la visión de la cultura Maya. La definición debe ser más larga, detallada, e informativa, similar a una entrada de diccionario extendida. Incluye referencias a fuentes específicas que traten este concepto.\n\nDefinición:",
-        "max_tokens": 2048,
+        "max_tokens": 4048,
         "temperature": 0.7,
         "top_p": 0.7,
         "top_k": 50,
